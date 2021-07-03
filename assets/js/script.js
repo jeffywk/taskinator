@@ -39,10 +39,7 @@ var taskFormHandler = function(event) {
   }
 };
 
-var createTaskEl = function(taskDataObj) {
-  console.log(taskDataObj);
-  console.log(taskDataObj.status);
-  
+var createTaskEl = function(taskDataObj) {  
 
   var listItemEl = document.createElement("li");
   listItemEl.className = "task-item";
@@ -213,6 +210,21 @@ var deleteTask = function(taskId) {
 
 var saveTasks = function() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+var loadTasks = function() {
+  var savedTasks = localStorage.getItem("tasks");
+
+  if (!savedTasks) {
+    tasks = [];
+    return false;
+  }
+
+  savedTasks = JSON.parse(savedTasks);
+  // loop through savedTasks array
+  for (var i = 0; i < savedTasks.length; i++){
+    createTaskEl(savedTasks[i]);
+  }
 }
 
 // Create a new task
